@@ -1,3 +1,4 @@
+archives/Games-Sudoku-Component-0.01.tar.gz
 Changes
 lib/Games/Sudoku/Component.pm
 lib/Games/Sudoku/Component/Base.pm
@@ -26,4 +27,5 @@ t/50_status.t
 t/60_history.t
 t/70_controller.t
 t/80_component.t
+t/90_loader.t
 META.yml                                 Module meta-data (added by MakeMaker)

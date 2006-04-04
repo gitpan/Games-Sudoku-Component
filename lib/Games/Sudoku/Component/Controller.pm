@@ -4,7 +4,7 @@ package Games::Sudoku::Component::Controller;
   use warnings;
   use Carp;
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   use Games::Sudoku::Component::Table;
   use Games::Sudoku::Component::Table::Item;
@@ -93,7 +93,7 @@ package Games::Sudoku::Component::Controller;
 
     $this->{history}->push($item);
 
-    return 1;
+    return $item;
   }
 
   sub find_hints { $_[0]->{table}->find_all; }
@@ -105,8 +105,9 @@ package Games::Sudoku::Component::Controller;
 
     $status->turn_to_ok if $status->is_null;
 
+    my $result;
     if ($status->is_ok) {
-      my $result = $this->find_and_set;
+      $result = $this->find_and_set;
 
       unless ($result) {
         if ($this->{table}->is_finished) {
@@ -129,11 +130,11 @@ package Games::Sudoku::Component::Controller;
       }
     }
     if ($status->is_rewind) {
-      my $item = $this->rewind;
+      $result = $this->rewind;
 
-      if ($item) {
-        if ($item->allowed) {
-          $this->find_and_set($item);
+      if ($result) {
+        if ($result->allowed) {
+          $this->find_and_set($result);
           $status->turn_to_ok;
         }
       }
@@ -146,6 +147,7 @@ package Games::Sudoku::Component::Controller;
         }
       }
     }
+    return $result;
   }
 
   sub solve {
@@ -169,13 +171,16 @@ package Games::Sudoku::Component::Controller;
 
     $table->lock_all;
 
-    foreach (1..$count) {
+    foreach my $id (1..$count) {
       my $row = int(rand($size)) + 1;
       my $col = int(rand($size)) + 1;
+      redo unless $table->cell($row,$col)->value;
       $table->cell($row,$col)->unlock;
+      my $prev = $table->cell($row,$col)->value;
       $table->cell($row,$col)->value(0);
     }
 
+    $this->{status}->clear;
     $this->{history}->clear;
   }
 

@@ -4,7 +4,7 @@ package Games::Sudoku::Component::Table;
   use warnings;
   use Carp;
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   use base qw/Games::Sudoku::Component::Base/;
   use Games::Sudoku::Component::Table::Cell;
@@ -119,7 +119,7 @@ package Games::Sudoku::Component::Table;
     my $this = shift;
 
     foreach my $cell ($this->cells) {
-      $cell->lock;
+      $cell->lock if $cell->realvalue;
     }
   }
 

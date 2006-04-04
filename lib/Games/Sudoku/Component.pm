@@ -4,7 +4,7 @@ package Games::Sudoku::Component;
   use warnings;
   use Carp;
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   use Games::Sudoku::Component::Controller;
 

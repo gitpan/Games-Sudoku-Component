@@ -9,6 +9,7 @@ BEGIN {
     Games::Sudoku::Component::Controller
     Games::Sudoku::Component::Controller::History
     Games::Sudoku::Component::Controller::Status
+    Games::Sudoku::Component::Controller::Loader
     Games::Sudoku::Component::Result
     Games::Sudoku::Component::Table
     Games::Sudoku::Component::Table::Cell

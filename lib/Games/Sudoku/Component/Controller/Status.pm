@@ -4,7 +4,7 @@ package Games::Sudoku::Component::Controller::Status;
   use warnings;
   use Carp;
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   my $S_NULL   = 0;
   my $S_OK     = 1;
@@ -103,7 +103,7 @@ See L<Games::Sudoku::Component::Controller>.
 
 =head2 is_null
 
-Returns true if the controlleri has no special status.
+Returns true if the controller has no special status.
 
 =head2 is_ok
 

@@ -4,14 +4,14 @@ package Games::Sudoku::Component::Controller::Loader;
   use warnings;
   use Carp;
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   use Games::Sudoku::Component::Table::Item;
 
   sub load {
     my $pkg = shift;
 
-    my str;
+    my $str;
 
     if (@_ == 1 and !ref $_[0]) {
       $str = shift;
@@ -33,16 +33,21 @@ package Games::Sudoku::Component::Controller::Loader;
       }
     }
 
+    $str ||= '';
+
     my @cells = ();
+    my ($row, $col) = (0,0);
     foreach my $line (split(/\n+/, $str)) {
       $line =~ s/\r//g;
-      my $row++;
+      $row++;
+      $col = 0;
       foreach my $value (split(/\s+/, $line)) {
-        my $col++;
+        $col++;
         $value = 0 unless $value =~ /^[0-9]+$/;
         push @cells, Games::Sudoku::Component::Table::Item->new(
           row   => $row,
           col   => $col,
+          allowed => [],
           value => $value,
         );
       }

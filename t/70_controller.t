@@ -91,6 +91,37 @@ my @tests;
     }
     ok($pzl eq $c3->table->as_string);
   },
+
+  sub {
+    $c3->clear;
+    $c3->load(<<'_EOT_');
+6 2 3 4 5 1
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+_EOT_
+    ok($c3->table->cell(1,1)->value == 6);
+  },
+  sub {
+    ok($c3->table->cell(1,2)->value == 2);
+  },
+  sub {
+    ok($c3->table->cell(1,3)->value == 3);
+  },
+  sub {
+    ok($c3->table->cell(1,4)->value == 4);
+  },
+  sub {
+    ok($c3->table->cell(1,5)->value == 5);
+  },
+  sub {
+    ok($c3->table->cell(1,6)->value == 1);
+  },
+  sub {
+    ok($c3->table->cell(2,1)->value == 0);
+  },
 );
 
 # We have some exception tests.
